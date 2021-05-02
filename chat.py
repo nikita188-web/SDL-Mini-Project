@@ -100,13 +100,16 @@ nltk.download('popular', quiet=True) # for downloading packages
 #nltk.download('punkt') # first-time use only
 #nltk.download('wordnet') # first-time use only
 
+#reading in the corpus
 f=open('chatbot.txt','r',errors = 'ignore')
 raw=f.read()
 raw = raw.lower()# converts to lowercase
 
+#tokenization
 sent_tokens = nltk.sent_tokenize(raw)# converts to list of sentences
 word_tokens = nltk.word_tokenize(raw)# converts to list of words
 
+#preprocessing
 lemmer = nltk.stem.WordNetLemmatizer()
 #WordNet is a semantically-oriented dictionary of English included in NLTK.
 def LemTokens(tokens):
@@ -116,7 +119,7 @@ remove_punct_dict = dict((ord(punct), None) for punct in string.punctuation)
 def LemNormalize(text):
     return LemTokens(nltk.word_tokenize(text.lower().translate(remove_punct_dict)))
 
-
+#keyword matching
 GREETING_INPUTS = ("hello", "hi", "greetings", "sup", "what's up", "hey",)
 GREETING_RESPONSES = ["hi", "hey", "*nods*", "hi there", "hello", "I am glad! You are talking to me"]
 
@@ -126,6 +129,7 @@ def greeting(sentence):
         if word.lower() in GREETING_INPUTS:
             return random.choice(GREETING_RESPONSES)
 
+#generating response
 def response(user_response):
     robo_response=''
     sent_tokens.append(user_response)
